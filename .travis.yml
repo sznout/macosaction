@@ -1,0 +1,7 @@
+os: osx  # 指定使用 macOS 系统
+osx_image: xcode12.5  # 选择特定版本的 Xcode
+language: swift  # 指定使用的编程语言
+
+# 定义构建和测试步骤
+install:
+  - uname -m
