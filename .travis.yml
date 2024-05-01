@@ -16,6 +16,7 @@ install:
   - sudo dscl . delete /Users/fxlqwq IsHidden
   - sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser "fxlqwq"
   - sudo dseditgroup -o edit -a fxlqwq -t user admin
+  - sudo killall ARDAgent
   - sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -menu
   - sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -allowAccessFor -specifiedUsers
   - sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -configure -users fxlqwq -privs -all
