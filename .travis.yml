@@ -2,7 +2,7 @@ os: osx  # 指定使用 macOS 系统
 osx_image: xcode14.2  # 选择特定版本的 Xcode
 language: swift  # 指定使用的编程语言
 
-# 定义构建和测试步骤
+# 定义构建和测试步
 install:
   - uname -m
   - sw_vers
