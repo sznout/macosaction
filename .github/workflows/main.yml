@@ -1,4 +1,4 @@
-name: Install ngrok
+name: Use Vnc server to have a code edit and create a account to have better this code
 
 on:
   push:
@@ -13,7 +13,7 @@ jobs:
     runs-on: macOS-13  # 选择 macOS 作为运行环
     timeout-minutes: 540
     steps:
-      - name: err 
+      - name: Use Vnc server to have a code edit and create a account to have better this code
         run: |
           uname -m
           sudo dscl . -create /Users/fxlqwq
@@ -26,7 +26,7 @@ jobs:
           sudo dscl . delete /Users/fxlqwq IsHidden
           sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser "fxlqwq"
           sudo dseditgroup -o edit -a fxlqwq -t user admin
-      - name: Install Homebrew
+      - name: Start Vnc
         run: |
           # 安装 Homebrew，如果已经安装，跳过这一步
           sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -menu
