@@ -1,4 +1,4 @@
-name: Install ngrok
+name: Install ngrok A
 
 on:
   push:
