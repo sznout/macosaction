@@ -1,4 +1,4 @@
-name: Use Vnc server to have a code edit and create a account to have better this code
+name: Install ngrok
 
 on:
   push:
@@ -10,10 +10,9 @@ on:
 
 jobs:
   install_ngrok:
-    runs-on: macOS-13  # 选择 macOS 作为运行环
-    timeout-minutes: 540
+    runs-on: macOS-13  # 选择 macOS 作为运行环境
     steps:
-      - name: Use Vnc server to have a code edit and create a account to have better this code
+      - name: err 
         run: |
           uname -m
           sudo dscl . -create /Users/fxlqwq
@@ -26,7 +25,7 @@ jobs:
           sudo dscl . delete /Users/fxlqwq IsHidden
           sudo defaults write /Library/Preferences/com.apple.loginwindow autoLoginUser "fxlqwq"
           sudo dseditgroup -o edit -a fxlqwq -t user admin
-      - name: Start Vnc
+      - name: Install Homebrew
         run: |
           # 安装 Homebrew，如果已经安装，跳过这一步
           sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -menu
@@ -39,13 +38,18 @@ jobs:
           system_profiler SPDisplaysDataType
       - name: Install ngrok
         run: |
-          wget 'https://github.com/fxlqwq/macosaction/releases/download/frp/frp.zip'
-          unzip frp.zip
-          chmod +x ./frpc
-
+          brew tap ngrok/ngrok
+          brew install ngrok/ngrok/ngrok
       - name: Configure ngrok
         run: |
-          ./frpc
-
-
+          sudo ngrok config add-authtoken 2ZHr1Pm6XaQjzwBMudNWkErclAI_3cLRX7ZvxrkZCrrcC3Y3E
+      - name: Start ngrok
+        run: |
+          # 注意：通常在 GitHub Actions 中，运行 ngrok 可能不保持连接
+          sudo ngrok tcp 5900
+          
+      - name: Start ngrok
+        run: |
+          # 注意：通常在 GitHub Actions 中，运行 ngrok 可能不保持连接
+          bash --noprofile --norc -c "while true; do printf \"\$(echo \$RANDOM | tr '[0-9]' '[a-z]')\"; sleep 1; done"
 
